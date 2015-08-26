@@ -95,6 +95,13 @@ RUN cd /tmp/libevent-0.1.0 && phpize && ./configure --with-nano=/usr/local && ma
 
 COPY ini/50-libevent.ini /etc/php.d/
 
+COPY dist/xhprof-0.9.4.tgz /tmp/xhprof-0.9.4.tgz
+RUN cd /tmp && tar -zxf xhprof-0.9.4.tgz
+RUN cd /tmp/xhprof-0.9.4/extension && phpize && ./configure && make && make install && make clean
+
+RUN mkdir -p /var/log/xhprof && chmod 777 /var/log/xhprof
+COPY ini/55-xhprof.ini /etc/php.d/
+
 RUN yum -y install libev libev-devel
 COPY dist/ev-0.2.15.tgz /tmp/ev-0.2.15.tgz
 RUN cd /tmp && tar -zxf ev-0.2.15.tgz
