@@ -114,5 +114,5 @@ RUN cd /tmp/setuptools-1.4.2 && python2.7 setup.py install
 COPY src/get-pip.py /tmp/get-pip.py 
 RUN cd /tmp && cat get-pip.py | python2.7 -
 RUN pip install virtualenv
- 
+RUN yum -y install which
  
