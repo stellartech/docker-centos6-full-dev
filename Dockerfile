@@ -73,7 +73,7 @@ COPY ini/50-amqp.ini /etc/php.d/50-amqp.ini
 RUN yum -y install php56u-mysqlnd php56u-pecl-memcached php56u-pdo php56u-mbstring \
 	php56u-gd php56u-mcrypt php56u-opcache php56u-pecl-geoip php56u-pecl-pthreads \
 	php56u-process php56u-imap php56u-intl php56u-ldap php56u-pecl-redis php56u-pecl-imagick \
-	php56u-pspell php56u-soap php56u-snmp php56u-tidy php56u-xml 
+	php56u-pspell php56u-soap php56u-snmp php56u-tidy php56u-xml php56u-fpm
 
 COPY ini/php.ini /etc/php.ini
 
