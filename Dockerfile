@@ -123,3 +123,10 @@ RUN cd /tmp && cat get-pip.py | python2.7 -
 RUN pip install virtualenv
 RUN yum -y install which pwhois valgrind
  
+RUN yum -y install libffi-devel
+RUN mkdir -p /var/www/html/crossbar
+RUN cd /var/www/html/crossbar && virtualenv python-venv && \
+    cd python-venv/ && \
+    . bin/activate && \
+    pip install crossbar
+
