@@ -130,3 +130,4 @@ RUN cd /var/www/html/crossbar && virtualenv python-venv && \
     . bin/activate && \
     pip install crossbar
 
+RUN yum -y install golang-bin
