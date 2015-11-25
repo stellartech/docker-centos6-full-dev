@@ -131,3 +131,27 @@ RUN cd /var/www/html/crossbar && virtualenv python-venv && \
     pip install crossbar
 
 RUN yum -y install golang-bin
+
+RUN cd /tmp && rm -rf * \
+	&& wget www.gtsc.pics/jdk-8u66-linux-x64.rpm \
+	&& rpm -ivh jdk-8u66-linux-x64.rpm \
+	&& rm -f jdk-8u66-linux-x64.rpm
+
+RUN yum -y install java-1.8.0-openjdk
+ 
+RUN cd /tmp && wget http://mirror.sdunix.com/apache/ant/binaries/apache-ant-1.9.6-bin.zip \
+	&& unzip apache-ant-1.9.6-bin.zip && rm -f apache-ant-1.9.6-bin.zip \
+	&& mv apache-ant-1.9.6/ /opt/ant \
+	&& ln -s /opt/ant/bin/ant /usr/bin/ant
+
+COPY etc/profile.d/ant.sh /etc/profile.d/ant.sh
+COPY etc/profile.d/maven.sh /etc/profile.d/maven.sh
+RUN  chmod +x /etc/profile.d/ant.sh && chmod +x /etc/profile.d/maven.sh \
+	&& source /etc/profile.d/ant.sh
+
+RUN cd /tmp && wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz \
+	&& tar -zxf apache-maven-3.0.5-bin.tar.gz && rm -f apache-maven-3.0.5-bin.tar.gz \
+	&& mv apache-maven-3.0.5 /usr/local/ \
+	&& ln -s /usr/local/apache-maven-3.0.5 /usr/local/maven \
+	&& source /etc/profile.d/maven.sh
+
