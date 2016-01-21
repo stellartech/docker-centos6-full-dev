@@ -61,6 +61,8 @@ RUN cd /tmp && tar -zxf phpjansson.tgz && rm -f phpjansson.tgz \
 	&& phpize \
 	&& ./configure --with-jansson && make && make install && make clean
 
+COPY ini/60-jansson.ini /etc/php.d/60-jansson.ini
+
 COPY dist/php-zmq-1.1.2.zip /tmp/php-zmq-1.1.2.zip
 RUN cd /tmp && unzip php-zmq-1.1.2.zip \
 	&& cd /tmp/php-zmq-1.1.2 \
