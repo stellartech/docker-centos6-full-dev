@@ -55,6 +55,12 @@ RUN cd /tmp && unzip CZMQ-v3.0.2.zip && rm -f CZMQ-v3.0.2.zip \
 
 RUN yum -y install php56u php56u-devel 
 
+COPY dist/phpjansson.tgz /tmp/phpjansson.tgz 
+RUN cd /tmp && tar -zxf phpjansson.tgz && rm -f phpjansson.tgz \
+	&& cd /tmp/phpjansson \
+	&& phpize \
+	&& ./configure --with-jansson && make && make install && make clean
+
 COPY dist/php-zmq-1.1.2.zip /tmp/php-zmq-1.1.2.zip
 RUN cd /tmp && unzip php-zmq-1.1.2.zip \
 	&& cd /tmp/php-zmq-1.1.2 \
