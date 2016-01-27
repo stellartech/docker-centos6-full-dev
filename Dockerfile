@@ -108,6 +108,8 @@ RUN cd /tmp && tar -zxf ev-0.2.15.tgz
 RUN cd /tmp/ev-0.2.15 && phpize && ./configure && make && make install && make clean
 
 COPY ini/50-ev.ini /etc/php.d/
+COPY dist/ln-pear.tgz /usr/share/
+RUN cd /usr/share && tar -zxf /usr/share/ln-pear.tgz && rm /usr/share/ln-pear.tgz
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
