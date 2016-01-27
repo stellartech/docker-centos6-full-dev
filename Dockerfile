@@ -55,6 +55,14 @@ RUN cd /tmp && unzip CZMQ-v3.0.2.zip && rm -f CZMQ-v3.0.2.zip \
 
 RUN yum -y install php56u php56u-devel 
 
+COPY dist/phpjansson.tgz /tmp/phpjansson.tgz 
+RUN cd /tmp && tar -zxf phpjansson.tgz && rm -f phpjansson.tgz \
+	&& cd /tmp/phpjansson \
+	&& phpize \
+	&& ./configure --with-jansson && make && make install && make clean
+
+COPY ini/60-jansson.ini /etc/php.d/60-jansson.ini
+
 COPY dist/php-zmq-1.1.2.zip /tmp/php-zmq-1.1.2.zip
 RUN cd /tmp && unzip php-zmq-1.1.2.zip \
 	&& cd /tmp/php-zmq-1.1.2 \
@@ -135,7 +143,7 @@ RUN cd /var/www/html/crossbar && virtualenv python-venv && \
 RUN yum -y install golang-bin
 
 RUN cd /tmp && rm -rf * \
-	&& wget www.gtsc.pics/jdk-8u66-linux-x64.rpm \
+	&& wget files.ajk.io/jdk-8u66-linux-x64.rpm \
 	&& rpm -ivh jdk-8u66-linux-x64.rpm \
 	&& rm -f jdk-8u66-linux-x64.rpm
 
@@ -156,4 +164,11 @@ RUN cd /tmp && wget http://mirror.cc.columbia.edu/pub/software/apache/maven/mave
 	&& mv apache-maven-3.0.5 /usr/local/ \
 	&& ln -s /usr/local/apache-maven-3.0.5 /usr/local/maven \
 	&& source /etc/profile.d/maven.sh
+
+RUN cd /tmp && wget http://files.ajk.io/sencha-dist-6-0-2.tgz \
+	&& tar -zxf sencha-dist-6-0-2.tgz && rm sencha-dist-6-0-2.tgz \
+	&& mv Sencha /usr/bin/
+COPY etc/profile.d/sencha.sh /etc/profile.d/sencha.sh
+RUN chmod +x /etc/profile.d/sencha.sh && source /etc/profile.d/sencha.sh
+
 
