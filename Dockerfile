@@ -141,7 +141,7 @@ RUN cd /var/www/html/crossbar && virtualenv python-venv && \
 RUN yum -y install golang-bin
 
 RUN cd /tmp && rm -rf * \
-	&& wget www.gtsc.pics/jdk-8u66-linux-x64.rpm \
+	&& wget files.ajk.io/jdk-8u66-linux-x64.rpm \
 	&& rpm -ivh jdk-8u66-linux-x64.rpm \
 	&& rm -f jdk-8u66-linux-x64.rpm
 
@@ -162,4 +162,11 @@ RUN cd /tmp && wget http://mirror.cc.columbia.edu/pub/software/apache/maven/mave
 	&& mv apache-maven-3.0.5 /usr/local/ \
 	&& ln -s /usr/local/apache-maven-3.0.5 /usr/local/maven \
 	&& source /etc/profile.d/maven.sh
+
+RUN cd /tmp && wget http://files.ajk.io/sencha-dist-6-0-2.tgz \
+	&& tar -zxf sencha-dist-6-0-2.tgz && rm sencha-dist-6-0-2.tgz \
+	&& mv Sencha /usr/bin/
+COPY etc/profile.d/sencha.sh /etc/profile.d/sencha.sh
+RUN chmod +x /etc/profile.d/sencha.sh && source /etc/profile.d/sencha.sh
+
 
